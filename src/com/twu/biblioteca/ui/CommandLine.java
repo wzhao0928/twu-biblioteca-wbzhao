@@ -10,9 +10,9 @@ public class CommandLine {
         System.out.print("Input Your Option > ");
         String inputString = new Scanner(System.in).nextLine();
         for (Option option : Option.values()) {
-            if (inputString.startsWith(option.toString()))
+            if (!option.equals(Option.INVALID) && inputString.startsWith(option.toString()))
                 return option;
         }
-        return null;
+        return Option.INVALID;
     }
 }

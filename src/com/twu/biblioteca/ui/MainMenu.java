@@ -16,7 +16,8 @@ public class MainMenu {
         Option[] options = Option.values();
         System.out.print("Available Options:\r\n\t");
         for (Option opt : options) {
-            System.out.print("[" + opt.toString() + "] ");
+            if (!opt.equals(Option.INVALID))
+                System.out.print("[" + opt.toString() + "] ");
         }
         System.out.print("\r\n");
     }

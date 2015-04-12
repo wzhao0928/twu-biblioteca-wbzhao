@@ -20,5 +20,6 @@ public class CommandProcessorTests {
                 "[ID: 5] [NAME: Test Book 5] [AUTHOR: Test Author 5] [YEAR: 2005]\r\n";
         CommandProcessor processor = new CommandProcessor(new PreExistingBookListSize5());
         assertEquals(expectedPrint, processor.response(Option.LIST_BOOKS));
+        assertEquals("Select a valid option!", processor.response(Option.INVALID));
     }
 }
