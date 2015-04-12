@@ -41,8 +41,7 @@ public class CommandProcessor {
 
     private String returnFlow() {
         String responseMsg;
-        System.out.print("\tPlease input the ID of the book: ");
-        long returnBookId = Long.parseLong(new Scanner(System.in).next());
+        long returnBookId = readBookId();
         if (bookListService.returnBookById(returnBookId)) {
             responseMsg = "Thank you for returning the book.";
         } else {
@@ -51,10 +50,14 @@ public class CommandProcessor {
         return responseMsg;
     }
 
+    private long readBookId() {
+        System.out.print("\tPlease input the ID of the book: ");
+        return Long.parseLong(new Scanner(System.in).next());
+    }
+
     private String checkOutFlow() {
         String responseMsg;
-        System.out.print("\tPlease input the ID of the book: ");
-        long checkoutBookId = Long.parseLong(new Scanner(System.in).next());
+        long checkoutBookId = readBookId();
         if (bookListService.checkOutBookById(checkoutBookId)) {
             responseMsg = "Thank you! Enjoy the book!";
         } else {

@@ -5,8 +5,6 @@ package com.twu.biblioteca.ui;
  */
 public class MainMenu {
 
-
-
     public Option[] listOptions() {
         showOptionList();
         return Option.values();
