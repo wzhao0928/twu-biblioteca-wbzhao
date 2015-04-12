@@ -21,5 +21,6 @@ public class CommandProcessorTests {
         CommandProcessor processor = new CommandProcessor(new PreExistingBookListSize5());
         assertEquals(expectedPrint, processor.response(Option.LIST_BOOKS));
         assertEquals("Select a valid option!", processor.response(Option.INVALID));
+        assertEquals("", processor.response(Option.QUIT));
     }
 }

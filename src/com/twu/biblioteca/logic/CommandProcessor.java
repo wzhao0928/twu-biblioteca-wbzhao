@@ -14,17 +14,18 @@ public class CommandProcessor {
     }
 
     public String response(Option option) {
+        String responseMsg = "";
         switch (option) {
             case LIST_BOOKS:
-                return bookListService.print();
+                responseMsg = bookListService.print();
+                break;
             case INVALID:
-                String invalidOptionMsg = "Select a valid option!";
-                System.out.println(invalidOptionMsg);
-                return invalidOptionMsg;
+                responseMsg = "Select a valid option!";
+                System.out.println(responseMsg);
+                break;
             default:
-                invalidOptionMsg = "Select a valid option!";
-                System.out.println(invalidOptionMsg);
-                return invalidOptionMsg;
+                break;
         }
+        return responseMsg;
     }
 }

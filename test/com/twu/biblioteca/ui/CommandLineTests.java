@@ -15,6 +15,8 @@ public class CommandLineTests {
         CommandLine commandLine = new CommandLine();
         System.setIn(new ByteArrayInputStream("List Books".getBytes()));
         assertEquals(Option.LIST_BOOKS, commandLine.readCommand());
+        System.setIn(new ByteArrayInputStream("Quit".getBytes()));
+        assertEquals(Option.QUIT, commandLine.readCommand());
         System.setIn(System.in);
     }
 }

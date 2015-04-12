@@ -7,7 +7,6 @@ import java.util.Scanner;
  */
 public class CommandLine {
     public Option readCommand() {
-        System.out.print("Input Your Option > ");
         String inputString = new Scanner(System.in).nextLine();
         for (Option option : Option.values()) {
             if (!option.equals(Option.INVALID) && inputString.startsWith(option.toString()))

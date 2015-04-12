@@ -20,5 +20,6 @@ public class MainMenu {
                 System.out.print("[" + opt.toString() + "] ");
         }
         System.out.print("\r\n");
+        System.out.print("Input Your Option > ");
     }
 }

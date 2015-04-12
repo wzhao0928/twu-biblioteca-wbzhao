@@ -5,6 +5,7 @@ import com.twu.biblioteca.repo.BookListService;
 import com.twu.biblioteca.repo.PreExistingBookListSize5;
 import com.twu.biblioteca.ui.CommandLine;
 import com.twu.biblioteca.ui.MainMenu;
+import com.twu.biblioteca.ui.Option;
 import com.twu.biblioteca.ui.WelcomeMessage;
 
 public class BibliotecaApp {
@@ -19,12 +20,15 @@ public class BibliotecaApp {
         setupComponents();
 
         System.out.println(welcomeMessage.getWelcomeMessage());
-//        System.out.println("Book List:");
-//        bookListService.print();
         mainMenu.listOptions();
-//        commandLine.readCommand();
-        processor.response(commandLine.readCommand());
+        Option inputOpt = commandLine.readCommand();
+        while (!inputOpt.equals(Option.QUIT)) {
+            processor.response(inputOpt);
+            mainMenu.listOptions();
+            inputOpt = commandLine.readCommand();
+        }
 
+        System.out.println("Bye Bye!");
     }
 
     private static void setupComponents() {
