@@ -17,11 +17,7 @@ public class BookTests {
         String name = "Test Book 1";
         String author = "Test Author 1";
         Year year = Year.of(2001);
-        Book testBook = new Book();
-        testBook.setId(id);
-        testBook.setName(name);
-        testBook.setAuthor(author);
-        testBook.setYear(year);
+        Book testBook = new Book(1, "Test Book 1", "Test Author 1", Year.of(2001));
         assertEquals(id, testBook.getId());
         assertEquals(name, testBook.getName());
         assertEquals(author, testBook.getAuthor());

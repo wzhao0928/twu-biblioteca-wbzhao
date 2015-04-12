@@ -1,13 +1,25 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.repo.BookListService;
+import com.twu.biblioteca.repo.PreExistingBookListSize5;
 import com.twu.biblioteca.ui.WelcomeMessage;
 
 public class BibliotecaApp {
 
+    private static WelcomeMessage welcomeMessage;
+    private static BookListService bookListService;
+
     public static void main(String[] args) {
-        System.out.println(new WelcomeMessage().getWelcomeMessage());
-//        TODO：List Books - As a customer, after the welcome message appears I would like to see a list of all library books, so that I can browse for books I might want to check-out. Assume that there is a pre-existing list of books. You don't need to support adding or removing books from the library.
-//        **TODO: A pre-existing list of book
-//        TODO: print the pre-existing list of book
+        setupComponents();
+
+        System.out.println(welcomeMessage.getWelcomeMessage());
+        System.out.println("Book List:");
+        bookListService.print();
+
+    }
+
+    private static void setupComponents() {
+        welcomeMessage = new WelcomeMessage();
+        bookListService = new PreExistingBookListSize5();
     }
 }

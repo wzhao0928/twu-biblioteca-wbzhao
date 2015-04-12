@@ -11,7 +11,11 @@ public class Book {
     private String author;
     private Year year;
 
-    public Book() {
+    public Book(long id, String name, String author, Year year) {
+        setId(id);
+        setName(name);
+        setAuthor(author);
+        setYear(year);
     }
 
     public Long getId() {
@@ -30,19 +34,30 @@ public class Book {
         return year;
     }
 
-    public void setId(Long id) {
+    private void setId(Long id) {
         this.id = id;
     }
 
-    public void setName(String name) {
+    private void setName(String name) {
         this.name = name;
     }
 
-    public void setAuthor(String author) {
+    private void setAuthor(String author) {
         this.author = author;
     }
 
-    public void setYear(Year year) {
+    private void setYear(Year year) {
         this.year = year;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Book) {
+            Book that = (Book)obj;
+            if (that.getId() == id)
+                return true;
+            return false;
+        }
+        return false;
     }
 }
