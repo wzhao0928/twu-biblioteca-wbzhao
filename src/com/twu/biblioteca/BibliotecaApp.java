@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.logic.CommandProcessor;
 import com.twu.biblioteca.repo.BookListService;
 import com.twu.biblioteca.repo.PreExistingBookListSize5;
 import com.twu.biblioteca.ui.CommandLine;
@@ -12,6 +13,7 @@ public class BibliotecaApp {
     private static BookListService bookListService;
     private static MainMenu mainMenu;
     private static CommandLine commandLine;
+    private static CommandProcessor processor;
 
     public static void main(String[] args) {
         setupComponents();
@@ -20,7 +22,8 @@ public class BibliotecaApp {
 //        System.out.println("Book List:");
 //        bookListService.print();
         mainMenu.listOptions();
-        commandLine.readCommand();
+//        commandLine.readCommand();
+        processor.response(commandLine.readCommand());
 
     }
 
@@ -29,6 +32,7 @@ public class BibliotecaApp {
         bookListService = new PreExistingBookListSize5();
         mainMenu = new MainMenu();
         commandLine = new CommandLine();
+        processor = new CommandProcessor(bookListService);
     }
 }
 
