@@ -41,10 +41,38 @@ public class CommandProcessorTests {
                 "[ID: 5] [NAME: Test Book 5] [AUTHOR: Test Author 5] [YEAR: 2005]\r\n" +
                 "=================";
         assertEquals(expectedPrint, processor.response(Option.LIST_BOOKS));
+        System.setIn(System.in);
+    }
+
+    @Test
+    public void test_checkout_not_existing_book_should_get_error_msg() throws Exception {
+        CommandProcessor processor = new CommandProcessor(new PreExistingBookListSize5());
         System.setIn(new ByteArrayInputStream("6".getBytes()));
         assertEquals("That book is not available.", processor.response(Option.CHECKOUT));
+    }
+
+    @Test
+    public void test_returned_book_should_show_in_list() throws Exception {
+        CommandProcessor processor = new CommandProcessor(new PreExistingBookListSize5());
+        String expectedPrint = "=== BOOK LIST ===\r\n" +
+                "[ID: 1] [NAME: Test Book 1] [AUTHOR: Test Author 1] [YEAR: 2001]\r\n" +
+                "[ID: 2] [NAME: Test Book 2] [AUTHOR: Test Author 2] [YEAR: 2002]\r\n" +
+                "[ID: 3] [NAME: Test Book 3] [AUTHOR: Test Author 3] [YEAR: 2003]\r\n" +
+                "[ID: 4] [NAME: Test Book 4] [AUTHOR: Test Author 4] [YEAR: 2004]\r\n" +
+                "[ID: 5] [NAME: Test Book 5] [AUTHOR: Test Author 5] [YEAR: 2005]\r\n" +
+                "=================";
+        System.setIn(new ByteArrayInputStream("1".getBytes()));
+        processor.response(Option.CHECKOUT);
+        System.setIn(new ByteArrayInputStream("1".getBytes()));
+        assertEquals("Thank you for returning the book.", processor.response(Option.RETURN));
         assertEquals(expectedPrint, processor.response(Option.LIST_BOOKS));
         System.setIn(System.in);
+    }
 
+    @Test
+    public void test_return_not_existing_book_should_get_error_msg() throws Exception {
+        CommandProcessor processor = new CommandProcessor(new PreExistingBookListSize5());
+        System.setIn(new ByteArrayInputStream("6".getBytes()));
+        assertEquals("That is not a valid book to return.", processor.response(Option.RETURN));
     }
 }

@@ -15,7 +15,7 @@ public class MainMenuTests {
     @Test
     public void test_main_menu_should_give_option_list() throws Exception {
         MainMenu mainMenu = new MainMenu();
-        String[] availableCommand = new String[]{"List Books", "Quit", "Check-out Book"};
+        String[] availableCommand = new String[]{"List Books", "Quit", "Check-out Book", "Return Book"};
         List<String> stringOptionList = new ArrayList<String>();
         for (Option opt : mainMenu.listOptions()) {
             stringOptionList.add(opt.toString());

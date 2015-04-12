@@ -25,13 +25,10 @@ public class CommandProcessor {
                 responseMsg = "Select a valid option!";
                 break;
             case CHECKOUT:
-                System.out.print("\tPlease input the ID of the book: ");
-                long bookId = Long.parseLong(new Scanner(System.in).next());
-                if (bookListService.checkOutBookById(bookId)) {
-                    responseMsg = "Thank you! Enjoy the book!";
-                } else {
-                    responseMsg = "That book is not available.";
-                }
+                responseMsg = checkOutFlow();
+                break;
+            case RETURN:
+                responseMsg = returnFlow();
                 break;
             default:
                 break;
@@ -39,6 +36,30 @@ public class CommandProcessor {
         System.out.println();
         System.out.println(responseMsg);
         System.out.println();
+        return responseMsg;
+    }
+
+    private String returnFlow() {
+        String responseMsg;
+        System.out.print("\tPlease input the ID of the book: ");
+        long returnBookId = Long.parseLong(new Scanner(System.in).next());
+        if (bookListService.returnBookById(returnBookId)) {
+            responseMsg = "Thank you for returning the book.";
+        } else {
+            responseMsg = "That is not a valid book to return.";
+        }
+        return responseMsg;
+    }
+
+    private String checkOutFlow() {
+        String responseMsg;
+        System.out.print("\tPlease input the ID of the book: ");
+        long checkoutBookId = Long.parseLong(new Scanner(System.in).next());
+        if (bookListService.checkOutBookById(checkoutBookId)) {
+            responseMsg = "Thank you! Enjoy the book!";
+        } else {
+            responseMsg = "That book is not available.";
+        }
         return responseMsg;
     }
 }

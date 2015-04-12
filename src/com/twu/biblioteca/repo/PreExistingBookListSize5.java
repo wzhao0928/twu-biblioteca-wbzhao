@@ -41,7 +41,6 @@ public class PreExistingBookListSize5 implements BookListService {
             toPrint += bookDetail;
         }
         toPrint += "=================";
-//        System.out.print(toPrint);
         return toPrint;
     }
 
@@ -50,6 +49,17 @@ public class PreExistingBookListSize5 implements BookListService {
         for (Book book : books) {
             if (book.getId() == id && book.getAvailable()) {
                 book.setAvailable(false);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean returnBookById(long id) {
+        for (Book book : books) {
+            if (book.getId() == id && !book.getAvailable()) {
+                book.setAvailable(true);
                 return true;
             }
         }
