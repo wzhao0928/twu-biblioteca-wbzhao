@@ -4,7 +4,7 @@ package com.twu.biblioteca.ui;
  * Created by wbzhao on 15-4-12.
  */
 public enum Option {
-    LIST_BOOKS("List Books"), INVALID(null), QUIT("Quit");
+    LIST_BOOKS("List Books"), INVALID(null), QUIT("Quit"), CHECKOUT("Check-out Book");
 
     private String optString;
 

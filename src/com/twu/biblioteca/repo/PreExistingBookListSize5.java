@@ -22,11 +22,17 @@ public class PreExistingBookListSize5 implements BookListService {
     }
 
     public List<Book> getBooks() {
-        return books;
+        List<Book> availableBooks = new ArrayList<Book>();
+        for (Book book : books) {
+            if (book.getAvailable()) {
+                availableBooks.add(book);
+            }
+        }
+        return availableBooks;
     }
 
     public String print() {
-        String toPrint = "";
+        String toPrint = "=== BOOK LIST ===\r\n";
         for (Book book : getBooks()) {
             String bookDetail = "[ID: " + book.getId() + "] " +
                     "[NAME: " + book.getName() + "] " +
@@ -34,7 +40,19 @@ public class PreExistingBookListSize5 implements BookListService {
                     "[YEAR: " + book.getYear() + "]\r\n";
             toPrint += bookDetail;
         }
-        System.out.print(toPrint);
+        toPrint += "=================";
+//        System.out.print(toPrint);
         return toPrint;
+    }
+
+    @Override
+    public boolean checkOutBookById(long id) {
+        for (Book book : books) {
+            if (book.getId() == id && book.getAvailable()) {
+                book.setAvailable(false);
+                return true;
+            }
+        }
+        return false;
     }
 }

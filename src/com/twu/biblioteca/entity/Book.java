@@ -10,12 +10,23 @@ public class Book {
     private String name;
     private String author;
     private Year year;
+    private Boolean available;
+
+    public Boolean getAvailable() {
+        return available;
+    }
+
+    public void setAvailable(Boolean available) {
+        this.available = available;
+    }
 
     public Book(long id, String name, String author, Year year) {
         setId(id);
         setName(name);
         setAuthor(author);
         setYear(year);
+        available = true;
+
     }
 
     public Long getId() {

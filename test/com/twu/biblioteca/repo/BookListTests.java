@@ -43,11 +43,13 @@ public class BookListTests {
     @Test
     public void test_pre_existing_book_list_should_be_printed() throws Exception {
         BookListService preExistingBookListSize5 = new PreExistingBookListSize5();
-        String expectedPrint = "[ID: 1] [NAME: Test Book 1] [AUTHOR: Test Author 1] [YEAR: 2001]\r\n" +
+        String expectedPrint = "=== BOOK LIST ===\r\n" +
+                "[ID: 1] [NAME: Test Book 1] [AUTHOR: Test Author 1] [YEAR: 2001]\r\n" +
                 "[ID: 2] [NAME: Test Book 2] [AUTHOR: Test Author 2] [YEAR: 2002]\r\n" +
                 "[ID: 3] [NAME: Test Book 3] [AUTHOR: Test Author 3] [YEAR: 2003]\r\n" +
                 "[ID: 4] [NAME: Test Book 4] [AUTHOR: Test Author 4] [YEAR: 2004]\r\n" +
-                "[ID: 5] [NAME: Test Book 5] [AUTHOR: Test Author 5] [YEAR: 2005]\r\n";
+                "[ID: 5] [NAME: Test Book 5] [AUTHOR: Test Author 5] [YEAR: 2005]\r\n" +
+                "=================";
         assertEquals(expectedPrint, preExistingBookListSize5.print());
     }
 }

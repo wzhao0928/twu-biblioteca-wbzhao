@@ -12,12 +12,10 @@ import static org.junit.Assert.assertTrue;
  */
 public class MainMenuTests {
 
-//    TODO: main menu should have option list
-
     @Test
     public void test_main_menu_should_give_option_list() throws Exception {
         MainMenu mainMenu = new MainMenu();
-        String[] availableCommand = new String[]{"List Books"};
+        String[] availableCommand = new String[]{"List Books", "Quit", "Check-out Book"};
         List<String> stringOptionList = new ArrayList<String>();
         for (Option opt : mainMenu.listOptions()) {
             stringOptionList.add(opt.toString());

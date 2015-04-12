@@ -15,11 +15,8 @@ public class BibliotecaApp {
 
     public static void main(String[] args) {
         setupComponents();
-
         System.out.println(welcomeMessage.getWelcomeMessage());
-
         String terminationMsg = console.run();
-
         System.out.println(terminationMsg);
     }
 
@@ -57,5 +54,3 @@ class Console {
         return "Bye Bye!";
     }
 }
-
-// TODO: main menu
