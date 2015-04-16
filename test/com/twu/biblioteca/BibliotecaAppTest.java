@@ -23,7 +23,7 @@ public class BibliotecaAppTest {
     public void test_biblioteca_should_say_byebye_and_quit_on_QUIT() throws Exception {
         System.setIn(new ByteArrayInputStream("Quit".getBytes()));
         BookListService bookListService = new PreExistingBookListSize5();
-        Console console = new Console(bookListService, new MainMenu(), new CommandLine(), new CommandProcessor(bookListService));
+        Console console = new Console(new MainMenu(), new CommandLine(), new CommandProcessor(bookListService));
         assertEquals("Bye Bye!", console.run());
         System.setIn(System.in);
 

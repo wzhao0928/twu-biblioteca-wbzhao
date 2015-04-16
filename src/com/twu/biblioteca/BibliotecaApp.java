@@ -26,18 +26,16 @@ public class BibliotecaApp {
         MainMenu mainMenu = new MainMenu();
         CommandLine commandLine = new CommandLine();
         CommandProcessor processor = new CommandProcessor(bookListService);
-        console = new Console(bookListService, mainMenu, commandLine, processor);
+        console = new Console(mainMenu, commandLine, processor);
     }
 }
 
 class Console {
-    private BookListService bookListService;
     private MainMenu mainMenu;
     private CommandLine commandLine;
     private CommandProcessor processor;
 
-    public Console(BookListService bookListService, MainMenu mainMenu, CommandLine commandLine, CommandProcessor processor) {
-        this.bookListService = bookListService;
+    public Console(MainMenu mainMenu, CommandLine commandLine, CommandProcessor processor) {
         this.mainMenu = mainMenu;
         this.commandLine = commandLine;
         this.processor = processor;
