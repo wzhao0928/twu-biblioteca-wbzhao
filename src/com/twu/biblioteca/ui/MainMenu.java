@@ -5,13 +5,23 @@ package com.twu.biblioteca.ui;
  */
 public class MainMenu {
 
+    private boolean login = false;
+
+    public void setLogin(boolean login) {
+        this.login = login;
+    }
+
+    public boolean isLogin() {
+        return login;
+    }
+
     public Option[] listOptions() {
         showOptionList();
-        return Option.values();
+        return Option.getOptions(this.login);
     }
 
     private void showOptionList() {
-        Option[] options = Option.values();
+        Option[] options = Option.getOptions(this.login);
         System.out.print("Available Options:\r\n\t");
         for (Option opt : options) {
             if (!opt.equals(Option.INVALID))

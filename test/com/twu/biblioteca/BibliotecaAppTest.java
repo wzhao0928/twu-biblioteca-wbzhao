@@ -31,6 +31,4 @@ public class BibliotecaAppTest {
 
     }
 
-//    TODO: movie
-//    TODO: list, checkout, and return options for movie in main menu
 }

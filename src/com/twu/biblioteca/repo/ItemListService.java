@@ -10,6 +10,7 @@ import java.util.List;
  */
 public abstract class ItemListService {
     protected List<Item> items;
+
     public List<Item> getItems() {
         List<Item> availableItems = new ArrayList<Item>();
         for (Item item : items) {
@@ -18,8 +19,8 @@ public abstract class ItemListService {
             }
         }
         return availableItems;
-    };
-//    public String print();
+    }
+
     public boolean checkOutItemById(long id) {
         for (Item item : items) {
             if (item.getId() == id && item.isAvailable()) {

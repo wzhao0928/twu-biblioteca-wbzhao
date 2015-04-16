@@ -11,6 +11,7 @@ public abstract class Item {
     private String creator;
     private Year year;
     private boolean available;
+    private String holderLibNumber;
 
     public Item(long id, String name, String creator, Year year) {
         this.id = id;
