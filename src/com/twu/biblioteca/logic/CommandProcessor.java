@@ -4,7 +4,6 @@ import com.twu.biblioteca.entity.Book;
 import com.twu.biblioteca.entity.Item;
 import com.twu.biblioteca.entity.Movie;
 import com.twu.biblioteca.repo.ItemListService;
-import com.twu.biblioteca.ui.Option;
 
 import java.util.List;
 import java.util.Scanner;
@@ -19,7 +18,6 @@ public class CommandProcessor {
     public CommandProcessor(ItemListService bookListService, ItemListService movieListService) {
         this.bookListService = bookListService;
         this.movieListService = movieListService;
-        Option.setProcessor(this);
     }
 
     public String response(Option option) {
@@ -105,4 +103,5 @@ public class CommandProcessor {
                         "[YEAR: " + movie.getYear() + "] " +
                         "[RATING: " + ((movie.getRating() == 0) ? "Not Rated" : movie.getRating() ) + "]\r\n";
     }
+
 }

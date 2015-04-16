@@ -1,5 +1,9 @@
 package com.twu.biblioteca.ui;
 
+import com.twu.biblioteca.logic.CommandProcessor;
+import com.twu.biblioteca.logic.Option;
+import com.twu.biblioteca.repo.PreExistingBookListSize5;
+import com.twu.biblioteca.repo.PreExistingMovieListSize3;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -12,17 +16,27 @@ import static org.junit.Assert.assertEquals;
 public class CommandLineTests {
     @Test
     public void test_command_line_should_return_option_according_to_input() throws Exception {
-        CommandLine commandLine = new CommandLine();
+        Console console = new Console(new CommandProcessor(new PreExistingBookListSize5(), new PreExistingMovieListSize3()));
+        console.setIsLoggedIn(false);
         System.setIn(new ByteArrayInputStream("List Books".getBytes()));
-        assertEquals(Option.LIST_BOOKS, commandLine.readCommand());
+        assertEquals(Option.LIST_BOOKS, console.readCommand());
         System.setIn(new ByteArrayInputStream("Quit".getBytes()));
-        assertEquals(Option.QUIT, commandLine.readCommand());
-        System.setIn(new ByteArrayInputStream("Check-out Book".getBytes()));
-        assertEquals(Option.CHECKOUT_BOOK, commandLine.readCommand());
-        System.setIn(new ByteArrayInputStream("Return Book".getBytes()));
-        assertEquals(Option.RETURN_BOOK, commandLine.readCommand());
+        assertEquals(Option.QUIT, console.readCommand());
         System.setIn(new ByteArrayInputStream("List Movies".getBytes()));
-        assertEquals(Option.LIST_MOVIES, commandLine.readCommand());
+        assertEquals(Option.LIST_MOVIES, console.readCommand());
+        System.setIn(new ByteArrayInputStream("Log in".getBytes()));
+        assertEquals(Option.LOG_IN, console.readCommand());
+        console.setIsLoggedIn(true);
+        System.setIn(new ByteArrayInputStream("Check-out Book".getBytes()));
+        assertEquals(Option.CHECKOUT_BOOK, console.readCommand());
+        System.setIn(new ByteArrayInputStream("Return Book".getBytes()));
+        assertEquals(Option.RETURN_BOOK, console.readCommand());
+        System.setIn(new ByteArrayInputStream("Check-out Movie".getBytes()));
+        assertEquals(Option.CHECKOUT_MOVIE, console.readCommand());
+        System.setIn(new ByteArrayInputStream("Return Movie".getBytes()));
+        assertEquals(Option.RETURN_MOVIE, console.readCommand());
+        System.setIn(new ByteArrayInputStream("Log out".getBytes()));
+        assertEquals(Option.LOG_OUT, console.readCommand());
 
         System.setIn(System.in);
     }

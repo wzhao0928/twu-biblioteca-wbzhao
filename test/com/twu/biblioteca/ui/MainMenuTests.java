@@ -1,5 +1,9 @@
 package com.twu.biblioteca.ui;
 
+import com.twu.biblioteca.logic.CommandProcessor;
+import com.twu.biblioteca.logic.Option;
+import com.twu.biblioteca.repo.PreExistingBookListSize5;
+import com.twu.biblioteca.repo.PreExistingMovieListSize3;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -29,12 +33,12 @@ public class MainMenuTests {
 
     @Test
     public void test_main_menu_should_give_public_options_before_login() throws Exception {
-        MainMenu mainMenu = new MainMenu();
+        Console console = new Console(new CommandProcessor(new PreExistingBookListSize5(), new PreExistingMovieListSize3()));
         String[] beforeLoginOpts = new String[]{"List Books", "List Movies", "Quit", "Log in"};
         String[] loggedInOnlyOpts = new String[] {"Check-out Book", "Return Book", "Check-out Movie", "Return Movie", "Log out"};
         List<String> stringOptionList = new ArrayList<String>();
-        mainMenu.setLogin(false);
-        for (Option opt : mainMenu.listOptions()) {
+        console.setIsLoggedIn(false);
+        for (Option opt : console.listOptions()) {
             stringOptionList.add(opt.toString());
         }
         for (String opt : beforeLoginOpts) {
@@ -47,12 +51,12 @@ public class MainMenuTests {
 
     @Test
     public void test_main_menu_should_give_logged_in_options_after_login() throws Exception {
-        MainMenu mainMenu = new MainMenu();
+        Console console = new Console(new CommandProcessor(new PreExistingBookListSize5(), new PreExistingMovieListSize3()));
         String[] onlyBeforeLoginOpts = new String[]{"Log in"};
         String[] loggedInOpts = new String[]{"List Books", "List Movies", "Quit", "Check-out Book", "Return Book", "Check-out Movie", "Return Movie", "Log out"};
-        mainMenu.setLogin(true);
+        console.setIsLoggedIn(true);
         List<String> stringOptionList = new ArrayList<String>();
-        for (Option opt : mainMenu.listOptions()) {
+        for (Option opt : console.listOptions()) {
             stringOptionList.add(opt.toString());
         }
         for (String opt: loggedInOpts) {

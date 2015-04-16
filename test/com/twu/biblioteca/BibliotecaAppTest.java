@@ -5,8 +5,7 @@ import com.twu.biblioteca.logic.CommandProcessor;
 import com.twu.biblioteca.repo.ItemListService;
 import com.twu.biblioteca.repo.PreExistingBookListSize5;
 import com.twu.biblioteca.repo.PreExistingMovieListSize3;
-import com.twu.biblioteca.ui.CommandLine;
-import com.twu.biblioteca.ui.MainMenu;
+import com.twu.biblioteca.ui.Console;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -25,7 +24,7 @@ public class BibliotecaAppTest {
         System.setIn(new ByteArrayInputStream("Quit".getBytes()));
         ItemListService bookListService = new PreExistingBookListSize5();
         ItemListService movieListService = new PreExistingMovieListSize3();
-        Console console = new Console(new MainMenu(), new CommandLine(), new CommandProcessor(bookListService, movieListService));
+        Console console = new Console(new CommandProcessor(bookListService, movieListService));
         assertEquals("Bye Bye!", console.run());
         System.setIn(System.in);
 
