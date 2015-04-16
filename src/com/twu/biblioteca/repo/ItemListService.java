@@ -2,6 +2,7 @@ package com.twu.biblioteca.repo;
 
 import com.twu.biblioteca.entity.Item;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,7 +11,13 @@ import java.util.List;
 public abstract class ItemListService {
     protected List<Item> items;
     public List<Item> getItems() {
-        return items;
+        List<Item> availableItems = new ArrayList<Item>();
+        for (Item item : items) {
+            if (item.isAvailable()) {
+                availableItems.add(item);
+            }
+        }
+        return availableItems;
     };
 //    public String print();
     public boolean checkOutItemById(long id) {

@@ -1,5 +1,7 @@
 package com.twu.biblioteca.ui;
 
+import com.twu.biblioteca.entity.Book;
+import com.twu.biblioteca.entity.Movie;
 import com.twu.biblioteca.logic.CommandProcessor;
 
 /**
@@ -34,19 +36,34 @@ public enum Option {
         }
     },
 
-    CHECKOUT("Check-out Book") {
+    CHECKOUT_BOOK("Check-out Book") {
         @Override
         public String execute() {
-            return processor.doCheckOut();
+            return processor.doCheckOut(Book.class);
         }
     },
 
-    RETURN("Return Book") {
+    RETURN_BOOK("Return Book") {
         @Override
         public String execute() {
-            return processor.doReturn();
+            return processor.doReturn(Book.class);
         }
-    };
+    },
+
+    CHECKOUT_MOVIE("Check-out Movie") {
+        @Override
+        public String execute() {
+            return processor.doCheckOut(Movie.class);
+        }
+    },
+
+    RETURN_MOVIE("Return Movie") {
+        @Override
+        public String execute() {
+            return processor.doReturn(Movie.class);
+        }
+    }
+    ;
 
     private String optString;
     private static CommandProcessor processor;

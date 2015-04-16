@@ -18,9 +18,11 @@ public class CommandLineTests {
         System.setIn(new ByteArrayInputStream("Quit".getBytes()));
         assertEquals(Option.QUIT, commandLine.readCommand());
         System.setIn(new ByteArrayInputStream("Check-out Book".getBytes()));
-        assertEquals(Option.CHECKOUT, commandLine.readCommand());
+        assertEquals(Option.CHECKOUT_BOOK, commandLine.readCommand());
         System.setIn(new ByteArrayInputStream("Return Book".getBytes()));
-        assertEquals(Option.RETURN, commandLine.readCommand());
+        assertEquals(Option.RETURN_BOOK, commandLine.readCommand());
+        System.setIn(new ByteArrayInputStream("List Movies".getBytes()));
+        assertEquals(Option.LIST_MOVIES, commandLine.readCommand());
 
         System.setIn(System.in);
     }

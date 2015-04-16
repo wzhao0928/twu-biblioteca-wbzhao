@@ -30,77 +30,79 @@ public class CommandProcessor {
         return responseMsg;
     }
 
-    private String returnFlow() {
-        String responseMsg;
-        long returnBookId = readBookId();
-        if (bookListService.returnItemById(returnBookId)) {
-            responseMsg = "Thank you for returning the book.";
-        } else {
-            responseMsg = "That is not a valid book to return.";
-        }
-        return responseMsg;
+    public String doListBooks() {
+        return makeListView(bookListService.getItems(), Book.class);
     }
 
-    private long readBookId() {
-        System.out.print("\tPlease input the ID of the book: ");
+    public String doListMovies() {
+        return makeListView(movieListService.getItems(), Movie.class);
+    }
+
+    public String doCheckOut(Class clazz) {
+        return checkOutFlow(clazz);
+    }
+
+    public String doReturn(Class clazz) {
+        return returnFlow(clazz);
+    }
+
+    private String returnFlow(Class clazz) {
+        long returnItemId = readItemId(clazz);
+        if (clazz.equals(Book.class)) {
+            return bookListService.returnItemById(returnItemId) ?
+                    "Thank you for returning the book." : "That is not a valid book to return.";
+        }
+        if (clazz.equals(Movie.class)) {
+            return movieListService.returnItemById(returnItemId) ?
+                    "Thank you for returning the movie." : "That is not a valid movie to return.";
+        }
+        return null;
+    }
+
+    private String checkOutFlow(Class clazz) {
+        long checkoutItemId = readItemId(clazz);
+        if (clazz.equals(Book.class)) {
+            return bookListService.checkOutItemById(checkoutItemId) ?
+                    "Thank you! Enjoy the book!" : "That book is not available.";
+        }
+        if (clazz.equals(Movie.class)) {
+            return movieListService.checkOutItemById(checkoutItemId) ?
+                    "Thank you! Enjoy the movie!" : "That movie is not available.";
+        }
+        return "";
+    }
+
+    private long readItemId(Class clazz) {
+        System.out.print("\tPlease input the ID of the " + clazz.getSimpleName() + ": ");
         return Long.parseLong(new Scanner(System.in).next());
     }
 
-    private String checkOutFlow() {
-        String responseMsg;
-        long checkoutBookId = readBookId();
-        if (bookListService.checkOutItemById(checkoutBookId)) {
-            responseMsg = "Thank you! Enjoy the book!";
-        } else {
-            responseMsg = "That book is not available.";
-        }
-        return responseMsg;
-    }
-
-    private String makeBookListView(List<Item> books) {
-        String toPrint = "=== BOOK LIST ===\r\n";
-        for (Item item : books) {
-            Book book = (Book)item;
-            String bookDetail = "[ID: " + book.getId() + "] " +
-                    "[NAME: " + book.getName() + "] " +
-                    "[AUTHOR: " + book.getAuthor() + "] " +
-                    "[YEAR: " + book.getYear() + "]\r\n";
-            toPrint += bookDetail;
+    private String makeListView(List<Item> items, Class clazz) {
+        String toPrint = "=== " + clazz.getSimpleName().toUpperCase() + " LIST ===\r\n";
+        for (Item item : items) {
+            if (clazz.equals(Book.class)) {
+                toPrint += makeBookDetailLine((Book)item);
+            }
+            if (clazz.equals(Movie.class)) {
+                toPrint += makeMovieDetailLine((Movie) item);
+            }
         }
         toPrint += "=================";
         return toPrint;
     }
 
-    public String doListBooks() {
-        String result = makeBookListView(bookListService.getItems());
-        return result;
+    private String makeBookDetailLine(Book book) {
+        return "[ID: " + book.getId() + "] " +
+                        "[NAME: " + book.getName() + "] " +
+                        "[AUTHOR: " + book.getAuthor() + "] " +
+                        "[YEAR: " + book.getYear() + "]\r\n";
     }
 
-    public String doCheckOut() {
-        return checkOutFlow();
-    }
-
-    public String doReturn() {
-        return returnFlow();
-    }
-
-
-    public String doListMovies() {
-        return makeMovieListView(movieListService.getItems());
-    }
-
-    private String makeMovieListView(List<Item> movies) {
-        String toPrint = "=== BOOK LIST ===\r\n";
-        for (Item item : movies) {
-            Movie movie = (Movie)item;
-            String bookDetail = "[ID: " + movie.getId() + "] " +
-                    "[NAME: " + movie.getName() + "] " +
-                    "[AUTHOR: " + movie.getDirector() + "] " +
-                    "[YEAR: " + movie.getYear() + "]\r\n" +
-                    "[RATING: " + ((movie.getRating() == 0) ? "Not Rated" : movie.getRating() ) + "]";
-            toPrint += bookDetail;
-        }
-        toPrint += "=================";
-        return toPrint;
+    private String makeMovieDetailLine(Movie movie) {
+        return "[ID: " + movie.getId() + "] " +
+                        "[NAME: " + movie.getName() + "] " +
+                        "[DIRECTOR: " + movie.getDirector() + "] " +
+                        "[YEAR: " + movie.getYear() + "] " +
+                        "[RATING: " + ((movie.getRating() == 0) ? "Not Rated" : movie.getRating() ) + "]\r\n";
     }
 }
