@@ -1,8 +1,9 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.logic.CommandProcessor;
-import com.twu.biblioteca.repo.BookListService;
+import com.twu.biblioteca.repo.ItemListService;
 import com.twu.biblioteca.repo.PreExistingBookListSize5;
+import com.twu.biblioteca.repo.PreExistingMovieListSize3;
 import com.twu.biblioteca.ui.CommandLine;
 import com.twu.biblioteca.ui.MainMenu;
 import com.twu.biblioteca.ui.Option;
@@ -22,10 +23,11 @@ public class BibliotecaApp {
 
     private static void setupComponents() {
         welcomeMessage = new WelcomeMessage();
-        BookListService bookListService = new PreExistingBookListSize5();
+        ItemListService bookListService = new PreExistingBookListSize5();
+        ItemListService movieListService = new PreExistingMovieListSize3();
         MainMenu mainMenu = new MainMenu();
         CommandLine commandLine = new CommandLine();
-        CommandProcessor processor = new CommandProcessor(bookListService);
+        CommandProcessor processor = new CommandProcessor(bookListService, movieListService);
         console = new Console(mainMenu, commandLine, processor);
     }
 }

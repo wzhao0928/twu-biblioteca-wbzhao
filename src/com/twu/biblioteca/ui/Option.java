@@ -13,6 +13,13 @@ public enum Option {
         }
     },
 
+    LIST_MOVIES("List Movies") {
+        @Override
+        public String execute() {
+            return processor.doListMovies();
+        }
+    },
+
     INVALID(null) {
         @Override
         public String execute() {

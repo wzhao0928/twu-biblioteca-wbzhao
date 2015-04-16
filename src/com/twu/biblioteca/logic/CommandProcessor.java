@@ -1,7 +1,9 @@
 package com.twu.biblioteca.logic;
 
 import com.twu.biblioteca.entity.Book;
-import com.twu.biblioteca.repo.BookListService;
+import com.twu.biblioteca.entity.Item;
+import com.twu.biblioteca.entity.Movie;
+import com.twu.biblioteca.repo.ItemListService;
 import com.twu.biblioteca.ui.Option;
 
 import java.util.List;
@@ -11,10 +13,12 @@ import java.util.Scanner;
  * Created by wbzhao on 15-4-12.
  */
 public class CommandProcessor {
-    private BookListService bookListService;
+    private ItemListService bookListService;
+    private ItemListService movieListService;
 
-    public CommandProcessor(BookListService bookListService) {
+    public CommandProcessor(ItemListService bookListService, ItemListService movieListService) {
         this.bookListService = bookListService;
+        this.movieListService = movieListService;
         Option.setProcessor(this);
     }
 
@@ -29,7 +33,7 @@ public class CommandProcessor {
     private String returnFlow() {
         String responseMsg;
         long returnBookId = readBookId();
-        if (bookListService.returnBookById(returnBookId)) {
+        if (bookListService.returnItemById(returnBookId)) {
             responseMsg = "Thank you for returning the book.";
         } else {
             responseMsg = "That is not a valid book to return.";
@@ -45,7 +49,7 @@ public class CommandProcessor {
     private String checkOutFlow() {
         String responseMsg;
         long checkoutBookId = readBookId();
-        if (bookListService.checkOutBookById(checkoutBookId)) {
+        if (bookListService.checkOutItemById(checkoutBookId)) {
             responseMsg = "Thank you! Enjoy the book!";
         } else {
             responseMsg = "That book is not available.";
@@ -53,9 +57,10 @@ public class CommandProcessor {
         return responseMsg;
     }
 
-    private String makeBookListView(List<Book> books) {
+    private String makeBookListView(List<Item> books) {
         String toPrint = "=== BOOK LIST ===\r\n";
-        for (Book book : books) {
+        for (Item item : books) {
+            Book book = (Book)item;
             String bookDetail = "[ID: " + book.getId() + "] " +
                     "[NAME: " + book.getName() + "] " +
                     "[AUTHOR: " + book.getAuthor() + "] " +
@@ -67,7 +72,7 @@ public class CommandProcessor {
     }
 
     public String doListBooks() {
-        String result = makeBookListView(bookListService.getBooks());
+        String result = makeBookListView(bookListService.getItems());
         return result;
     }
 
@@ -80,4 +85,22 @@ public class CommandProcessor {
     }
 
 
+    public String doListMovies() {
+        return makeMovieListView(movieListService.getItems());
+    }
+
+    private String makeMovieListView(List<Item> movies) {
+        String toPrint = "=== BOOK LIST ===\r\n";
+        for (Item item : movies) {
+            Movie movie = (Movie)item;
+            String bookDetail = "[ID: " + movie.getId() + "] " +
+                    "[NAME: " + movie.getName() + "] " +
+                    "[AUTHOR: " + movie.getDirector() + "] " +
+                    "[YEAR: " + movie.getYear() + "]\r\n" +
+                    "[RATING: " + ((movie.getRating() == 0) ? "Not Rated" : movie.getRating() ) + "]";
+            toPrint += bookDetail;
+        }
+        toPrint += "=================";
+        return toPrint;
+    }
 }
