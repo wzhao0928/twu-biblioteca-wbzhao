@@ -24,9 +24,19 @@ public class CommandProcessorTests {
                 "=================";
         CommandProcessor processor = new CommandProcessor(new PreExistingBookListSize5());
         assertEquals(expectedPrint, processor.response(Option.LIST_BOOKS));
-        assertEquals("Select a valid option!", processor.response(Option.INVALID));
+    }
 
+    @Test
+    public void test_quit_should_return_empty_string() throws Exception {
+        CommandProcessor processor = new CommandProcessor(new PreExistingBookListSize5());
         assertEquals("", processor.response(Option.QUIT));
+
+    }
+
+    @Test
+    public void test_invalid_input_should_be_warned() throws Exception {
+        CommandProcessor processor = new CommandProcessor(new PreExistingBookListSize5());
+        assertEquals("Select a valid option!", processor.response(Option.INVALID));
     }
 
     @Test

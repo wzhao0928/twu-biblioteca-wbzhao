@@ -31,19 +31,6 @@ public class PreExistingBookListSize5 implements BookListService {
         return availableBooks;
     }
 
-    public String print() {
-        String toPrint = "=== BOOK LIST ===\r\n";
-        for (Book book : getBooks()) {
-            String bookDetail = "[ID: " + book.getId() + "] " +
-                    "[NAME: " + book.getName() + "] " +
-                    "[AUTHOR: " + book.getAuthor() + "] " +
-                    "[YEAR: " + book.getYear() + "]\r\n";
-            toPrint += bookDetail;
-        }
-        toPrint += "=================";
-        return toPrint;
-    }
-
     @Override
     public boolean checkOutBookById(long id) {
         for (Book book : books) {

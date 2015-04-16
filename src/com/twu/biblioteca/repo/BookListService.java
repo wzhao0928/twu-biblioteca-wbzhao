@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface BookListService {
     public List<Book> getBooks();
-    public String print();
+//    public String print();
     public boolean checkOutBookById(long id);
     public boolean returnBookById(long id);
 }

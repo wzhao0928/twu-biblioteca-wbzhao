@@ -1,8 +1,10 @@
 package com.twu.biblioteca.logic;
 
+import com.twu.biblioteca.entity.Book;
 import com.twu.biblioteca.repo.BookListService;
 import com.twu.biblioteca.ui.Option;
 
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -13,26 +15,11 @@ public class CommandProcessor {
 
     public CommandProcessor(BookListService bookListService) {
         this.bookListService = bookListService;
+        Option.setProcessor(this);
     }
 
     public String response(Option option) {
-        String responseMsg = "";
-        switch (option) {
-            case LIST_BOOKS:
-                responseMsg = bookListService.print();
-                break;
-            case INVALID:
-                responseMsg = "Select a valid option!";
-                break;
-            case CHECKOUT:
-                responseMsg = checkOutFlow();
-                break;
-            case RETURN:
-                responseMsg = returnFlow();
-                break;
-            default:
-                break;
-        }
+        String responseMsg = option.execute();
         System.out.println();
         System.out.println(responseMsg);
         System.out.println();
@@ -65,4 +52,32 @@ public class CommandProcessor {
         }
         return responseMsg;
     }
+
+    private String makeBookListView(List<Book> books) {
+        String toPrint = "=== BOOK LIST ===\r\n";
+        for (Book book : books) {
+            String bookDetail = "[ID: " + book.getId() + "] " +
+                    "[NAME: " + book.getName() + "] " +
+                    "[AUTHOR: " + book.getAuthor() + "] " +
+                    "[YEAR: " + book.getYear() + "]\r\n";
+            toPrint += bookDetail;
+        }
+        toPrint += "=================";
+        return toPrint;
+    }
+
+    public String doListBooks() {
+        String result = makeBookListView(bookListService.getBooks());
+        return result;
+    }
+
+    public String doCheckOut() {
+        return checkOutFlow();
+    }
+
+    public String doReturn() {
+        return returnFlow();
+    }
+
+
 }
