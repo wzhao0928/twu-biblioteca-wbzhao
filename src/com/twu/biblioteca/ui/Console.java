@@ -40,17 +40,6 @@ public class Console {
         return Option.getOptions(session.isLoggedIn());
     }
 
-    private static void showOptionList(boolean isLoggedIn) {
-        Option[] options = Option.getOptions(isLoggedIn);
-        System.out.print("Available Options:\r\n\t");
-        for (Option opt : options) {
-            if (!opt.equals(Option.INVALID))
-                System.out.print("[" + opt.toString() + "] ");
-        }
-        System.out.print("\r\n");
-        System.out.print("Input Your Option > ");
-    }
-
     public Option readCommand() {
         String inputString = new Scanner(System.in).nextLine();
         for (Option option : Option.getOptions(session.isLoggedIn())) {
@@ -75,6 +64,17 @@ public class Console {
         System.out.print("\tYour password: ");
         libNumberAndPsw[1] = new Scanner(System.in).nextLine();
         return libNumberAndPsw;
+    }
+
+    private static void showOptionList(boolean isLoggedIn) {
+        Option[] options = Option.getOptions(isLoggedIn);
+        System.out.print("Available Options:\r\n\t");
+        for (Option opt : options) {
+            if (!opt.equals(Option.INVALID))
+                System.out.print("[" + opt.toString() + "] ");
+        }
+        System.out.print("\r\n");
+        System.out.print("Input Your Option > ");
     }
 
 }

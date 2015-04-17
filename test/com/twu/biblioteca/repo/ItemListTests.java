@@ -3,7 +3,6 @@ package com.twu.biblioteca.repo;
 import com.twu.biblioteca.entity.Book;
 import com.twu.biblioteca.entity.Item;
 import com.twu.biblioteca.entity.Movie;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.time.Year;
@@ -15,11 +14,6 @@ import static org.junit.Assert.*;
  * Created by wbzhao on 15-4-12.
  */
 public class ItemListTests {
-
-    @Before
-    public void setUp() throws Exception {
-
-    }
 
     @Test
     public void pre_existing_books_should_be_get() throws Exception {

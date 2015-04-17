@@ -12,6 +12,9 @@ import java.util.Map;
  */
 public class UserListService {
 
+    private Map<String, String> userCredential;
+    private List<User> userList;
+
     public UserListService() {
         userCredential = new HashMap<String, String>();
         userCredential.put("123-4567", "123456");
@@ -19,13 +22,6 @@ public class UserListService {
         userList = new ArrayList<User>();
         userList.add(new User("123-4567", "Test User 1", "testuser1@test.com", "Test Address 1", "0639129751"));
         userList.add(new User("765-4321", "Test User 2", "testuser2@test.com", "Test Address 2", "0639129751"));
-    }
-
-    private Map<String, String> userCredential;
-    private List<User> userList;
-
-    public List<User> getUserList() {
-        return userList;
     }
 
     public User getUserByLibNumber(String libNumber) {
