@@ -19,6 +19,7 @@ public abstract class Item {
         this.creator = creator;
         this.year = year;
         available = true;
+        holderLibNumber = "";
     }
 
     public long getId() {
@@ -41,8 +42,9 @@ public abstract class Item {
         return available;
     }
 
-    public void setAvailable(boolean available) {
+    public void setAvailable(boolean available, String userLibNumber) {
         this.available = available;
+        setHolderLibNumber(userLibNumber);
     }
 
     @Override
@@ -54,5 +56,13 @@ public abstract class Item {
             return false;
         }
         return false;
+    }
+
+    public String getHolderLibNumber() {
+        return holderLibNumber;
+    }
+
+    public void setHolderLibNumber(String holderLibNumber) {
+        this.holderLibNumber = holderLibNumber;
     }
 }

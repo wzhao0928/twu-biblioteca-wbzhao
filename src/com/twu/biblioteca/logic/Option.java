@@ -2,7 +2,6 @@ package com.twu.biblioteca.logic;
 
 import com.twu.biblioteca.entity.Book;
 import com.twu.biblioteca.entity.Movie;
-import com.twu.biblioteca.ui.Console;
 
 import java.util.ArrayList;
 
@@ -13,14 +12,14 @@ public enum Option {
     LIST_BOOKS("List Books", Type.COMMON) {
         @Override
         public String execute() {
-            return console.getProcessor().doListBooks();
+            return executor.doListItems(Book.class);
         }
     },
 
     LIST_MOVIES("List Movies", Type.COMMON) {
         @Override
         public String execute() {
-            return console.getProcessor().doListMovies();
+            return executor.doListItems(Movie.class);
         }
     },
 
@@ -41,50 +40,49 @@ public enum Option {
     CHECKOUT_BOOK("Check-out Book", Type.AFTER_LOGIN) {
         @Override
         public String execute() {
-            return console.getProcessor().doCheckOut(Book.class);
+            return executor.doCheckOut(Book.class);
         }
     },
 
     RETURN_BOOK("Return Book", Type.AFTER_LOGIN) {
         @Override
         public String execute() {
-            return console.getProcessor().doReturn(Book.class);
+            return executor.doReturn(Book.class);
         }
     },
 
     CHECKOUT_MOVIE("Check-out Movie", Type.AFTER_LOGIN) {
         @Override
         public String execute() {
-            return console.getProcessor().doCheckOut(Movie.class);
+            return executor.doCheckOut(Movie.class);
         }
     },
 
     RETURN_MOVIE("Return Movie", Type.AFTER_LOGIN) {
         @Override
         public String execute() {
-            return console.getProcessor().doReturn(Movie.class);
+            return executor.doReturn(Movie.class);
         }
     },
 
     LOG_IN("Log in", Type.BEFORE_LOGIN) {
         @Override
         public String execute() {
-            console.setIsLoggedIn(true);
-            return "You are logged in";
+            return executor.doLogIn();
         }
     },
 
     LOG_OUT("Log out", Type.AFTER_LOGIN) {
         @Override
         public String execute() {
-            console.setIsLoggedIn(false);
-            return "You have logged out";
+            return executor.doLogOut();
         }
     }
     ;
 
     private String optString;
-    private static Console console;
+//    private static Console console;
+    private static OptionExecutor executor;
     private final Type type;
 
     public enum Type {COMMON, BEFORE_LOGIN, AFTER_LOGIN}
@@ -94,8 +92,9 @@ public enum Option {
         this.type = type;
     }
 
-    public static void setConsole(Console console) {
-        com.twu.biblioteca.logic.Option.console = console;
+    public static void setupOptionEnv(OptionExecutor exec) {
+//        console = consl;
+        executor = exec;
     }
 
     public static com.twu.biblioteca.logic.Option[] getOptions(boolean isLoggedIn) {

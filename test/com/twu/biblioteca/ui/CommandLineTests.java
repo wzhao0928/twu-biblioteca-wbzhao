@@ -1,7 +1,7 @@
 package com.twu.biblioteca.ui;
 
-import com.twu.biblioteca.logic.CommandProcessor;
 import com.twu.biblioteca.logic.Option;
+import com.twu.biblioteca.logic.OptionExecutor;
 import com.twu.biblioteca.repo.PreExistingBookListSize5;
 import com.twu.biblioteca.repo.PreExistingMovieListSize3;
 import org.junit.Test;
@@ -16,8 +16,9 @@ import static org.junit.Assert.assertEquals;
 public class CommandLineTests {
     @Test
     public void test_command_line_should_return_option_according_to_input() throws Exception {
-        Console console = new Console(new CommandProcessor(new PreExistingBookListSize5(), new PreExistingMovieListSize3()));
-        console.setIsLoggedIn(false);
+        Console console = new Console();
+        console.setupEnv(new OptionExecutor(new PreExistingBookListSize5(), new PreExistingMovieListSize3(), console));
+        console.getSession().setLoggedInUserLibNumber("");
         System.setIn(new ByteArrayInputStream("List Books".getBytes()));
         assertEquals(Option.LIST_BOOKS, console.readCommand());
         System.setIn(new ByteArrayInputStream("Quit".getBytes()));
@@ -26,7 +27,7 @@ public class CommandLineTests {
         assertEquals(Option.LIST_MOVIES, console.readCommand());
         System.setIn(new ByteArrayInputStream("Log in".getBytes()));
         assertEquals(Option.LOG_IN, console.readCommand());
-        console.setIsLoggedIn(true);
+        console.getSession().setLoggedInUserLibNumber("123-4567");
         System.setIn(new ByteArrayInputStream("Check-out Book".getBytes()));
         assertEquals(Option.CHECKOUT_BOOK, console.readCommand());
         System.setIn(new ByteArrayInputStream("Return Book".getBytes()));

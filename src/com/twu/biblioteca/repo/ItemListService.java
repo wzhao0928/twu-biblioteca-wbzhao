@@ -21,19 +21,19 @@ public abstract class ItemListService {
         return availableItems;
     }
 
-    public boolean checkOutItemById(long id) {
+    public boolean checkOutItemById(long id, String userLibNumber) {
         for (Item item : items) {
             if (item.getId() == id && item.isAvailable()) {
-                item.setAvailable(false);
+                item.setAvailable(false, userLibNumber);
                 return true;
             }
         }
         return false;    }
 
-    public boolean returnItemById(long id) {
+    public boolean returnItemById(long id, String userLibNumber) {
         for (Item item : items) {
-            if (item.getId() == id && !item.isAvailable()) {
-                item.setAvailable(true);
+            if (item.getId() == id && !item.isAvailable() && item.getHolderLibNumber().equals(userLibNumber)) {
+                item.setAvailable(true, "");
                 return true;
             }
         }

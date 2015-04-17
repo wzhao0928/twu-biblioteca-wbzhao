@@ -1,6 +1,6 @@
 package com.twu.biblioteca;
 
-import com.twu.biblioteca.logic.CommandProcessor;
+import com.twu.biblioteca.logic.OptionExecutor;
 import com.twu.biblioteca.repo.ItemListService;
 import com.twu.biblioteca.repo.PreExistingBookListSize5;
 import com.twu.biblioteca.repo.PreExistingMovieListSize3;
@@ -22,9 +22,9 @@ public class BibliotecaApp {
         welcomeMessage = new WelcomeMessage();
         ItemListService bookListService = new PreExistingBookListSize5();
         ItemListService movieListService = new PreExistingMovieListSize3();
-//        Console.MainMenu mainMenu = new Console.MainMenu();
-        CommandProcessor processor = new CommandProcessor(bookListService, movieListService);
-        console = new Console(processor);
+        console = new Console();
+        OptionExecutor executor = new OptionExecutor(bookListService, movieListService, console);
+        console.setupEnv(executor);
     }
 }
 

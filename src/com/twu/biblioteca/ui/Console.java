@@ -1,7 +1,8 @@
 package com.twu.biblioteca.ui;
 
-import com.twu.biblioteca.logic.CommandProcessor;
+import com.twu.biblioteca.authentication.Session;
 import com.twu.biblioteca.logic.Option;
+import com.twu.biblioteca.logic.OptionExecutor;
 
 import java.util.Scanner;
 
@@ -9,36 +10,34 @@ import java.util.Scanner;
  * Created by wbzhao on 15/4/16.
  */
 public class Console {
-    private CommandProcessor processor;
-    private Boolean isLoggedIn = false;
+    private static Session session;
 
-    public CommandProcessor getProcessor() {
-        return processor;
+    public Console() {
+        session = new Session();
     }
 
-    public Console(CommandProcessor processor) {
-        this.processor = processor;
-        Option.setConsole(this);
-    }
-
-    public void setIsLoggedIn(boolean isLoggedIn) {
-        this.isLoggedIn = isLoggedIn;
+    public void setupEnv(OptionExecutor executor) {
+        Option.setupOptionEnv(executor);
     }
 
     public String run() {
         listOptions();
         Option inputOpt = readCommand();
         while (!inputOpt.equals(Option.QUIT)) {
-            processor.response(inputOpt);
+            response(inputOpt);
             listOptions();
             inputOpt = readCommand();
         }
         return "Bye Bye!";
     }
 
+    public Session getSession() {
+        return session;
+    }
+
     public Option[] listOptions() {
-        showOptionList(isLoggedIn);
-        return Option.getOptions(isLoggedIn);
+        showOptionList(session.isLoggedIn());
+        return Option.getOptions(session.isLoggedIn());
     }
 
     private static void showOptionList(boolean isLoggedIn) {
@@ -54,11 +53,19 @@ public class Console {
 
     public Option readCommand() {
         String inputString = new Scanner(System.in).nextLine();
-        for (Option option : Option.getOptions(isLoggedIn)) {
+        for (Option option : Option.getOptions(session.isLoggedIn())) {
             if (!option.equals(Option.INVALID) && inputString.equals(option.toString()))
                 return option;
         }
         return Option.INVALID;
+    }
+
+    public String response(Option option) {
+        String responseMsg = option.execute();
+        System.out.println();
+        System.out.println(responseMsg);
+        System.out.println();
+        return responseMsg;
     }
 
 }
