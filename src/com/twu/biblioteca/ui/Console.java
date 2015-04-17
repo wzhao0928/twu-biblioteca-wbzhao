@@ -68,4 +68,13 @@ public class Console {
         return responseMsg;
     }
 
+    public String[] collectLoginInfo() {
+        String[] libNumberAndPsw = new String[2];
+        System.out.print("\tPlease input your Library number: ");
+        libNumberAndPsw[0] = new Scanner(System.in).nextLine();
+        System.out.print("\tYour password: ");
+        libNumberAndPsw[1] = new Scanner(System.in).nextLine();
+        return libNumberAndPsw;
+    }
+
 }

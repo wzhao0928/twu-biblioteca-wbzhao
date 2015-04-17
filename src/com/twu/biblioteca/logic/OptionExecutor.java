@@ -4,6 +4,7 @@ import com.twu.biblioteca.entity.Book;
 import com.twu.biblioteca.entity.Item;
 import com.twu.biblioteca.entity.Movie;
 import com.twu.biblioteca.repo.ItemListService;
+import com.twu.biblioteca.repo.UserListService;
 import com.twu.biblioteca.ui.Console;
 
 import java.util.Scanner;
@@ -15,12 +16,18 @@ public class OptionExecutor {
 
     private ItemListService bookListService;
     private ItemListService movieListService;
+    private UserListService userListService;
     private static Console console;
 
-    public OptionExecutor(ItemListService bookListService, ItemListService movieListService, Console consl) {
+    public OptionExecutor(ItemListService bookListService, ItemListService movieListService, Console consl, UserListService userListService) {
         this.bookListService = bookListService;
         this.movieListService = movieListService;
+        this.userListService = userListService;
         console = consl;
+    }
+
+    public Console getConsole() {
+        return console;
     }
 
     public String doListItems(Class clazz) {
@@ -85,11 +92,16 @@ public class OptionExecutor {
                 "[RATING: " + ((movie.getRating() == 0) ? "Not Rated" : movie.getRating() ) + "]\r\n";
     }
 
-    public String doLogIn() {
-        return null;
+    public String doLogIn(String[] libNumberAndPsw) {
+        if (userListService.checkCredential(libNumberAndPsw)) {
+            console.getSession().setLoggedInUserLibNumber(libNumberAndPsw[0]);
+            return "You have logged in with your Library number: " + libNumberAndPsw[0];
+        }
+        return "Invalid Library number or password!";
     }
 
     public String doLogOut() {
-        return null;
+        console.getSession().setLoggedInUserLibNumber("");
+        return "You have logged out";
     }
 }

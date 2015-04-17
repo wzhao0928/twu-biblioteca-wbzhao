@@ -4,6 +4,7 @@ import com.twu.biblioteca.logic.Option;
 import com.twu.biblioteca.logic.OptionExecutor;
 import com.twu.biblioteca.repo.PreExistingBookListSize5;
 import com.twu.biblioteca.repo.PreExistingMovieListSize3;
+import com.twu.biblioteca.repo.UserListService;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -17,7 +18,7 @@ public class CommandLineTests {
     @Test
     public void test_command_line_should_return_option_according_to_input() throws Exception {
         Console console = new Console();
-        console.setupEnv(new OptionExecutor(new PreExistingBookListSize5(), new PreExistingMovieListSize3(), console));
+        console.setupEnv(new OptionExecutor(new PreExistingBookListSize5(), new PreExistingMovieListSize3(), console, new UserListService()));
         console.getSession().setLoggedInUserLibNumber("");
         System.setIn(new ByteArrayInputStream("List Books".getBytes()));
         assertEquals(Option.LIST_BOOKS, console.readCommand());

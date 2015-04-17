@@ -4,6 +4,7 @@ import com.twu.biblioteca.logic.OptionExecutor;
 import com.twu.biblioteca.repo.ItemListService;
 import com.twu.biblioteca.repo.PreExistingBookListSize5;
 import com.twu.biblioteca.repo.PreExistingMovieListSize3;
+import com.twu.biblioteca.repo.UserListService;
 import com.twu.biblioteca.ui.*;
 
 public class BibliotecaApp {
@@ -22,8 +23,9 @@ public class BibliotecaApp {
         welcomeMessage = new WelcomeMessage();
         ItemListService bookListService = new PreExistingBookListSize5();
         ItemListService movieListService = new PreExistingMovieListSize3();
+        UserListService userListService = new UserListService();
         console = new Console();
-        OptionExecutor executor = new OptionExecutor(bookListService, movieListService, console);
+        OptionExecutor executor = new OptionExecutor(bookListService, movieListService, console, userListService);
         console.setupEnv(executor);
     }
 }

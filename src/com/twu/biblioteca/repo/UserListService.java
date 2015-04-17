@@ -14,4 +14,8 @@ public class UserListService {
     }
 
     private Map<String, String> userCredential;
+
+    public boolean checkCredential(String[] libNumberAndPsw) {
+        return libNumberAndPsw[1].equals(userCredential.get(libNumberAndPsw[0]));
+    }
 }

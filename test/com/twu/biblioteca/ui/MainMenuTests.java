@@ -4,6 +4,7 @@ import com.twu.biblioteca.logic.Option;
 import com.twu.biblioteca.logic.OptionExecutor;
 import com.twu.biblioteca.repo.PreExistingBookListSize5;
 import com.twu.biblioteca.repo.PreExistingMovieListSize3;
+import com.twu.biblioteca.repo.UserListService;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class MainMenuTests {
     @Test
     public void test_main_menu_should_give_public_options_before_login() throws Exception {
         Console console = new Console();
-        console.setupEnv(new OptionExecutor(new PreExistingBookListSize5(), new PreExistingMovieListSize3(), console));
+        console.setupEnv(new OptionExecutor(new PreExistingBookListSize5(), new PreExistingMovieListSize3(), console, new UserListService()));
         String[] beforeLoginOpts = new String[]{"List Books", "List Movies", "Quit", "Log in"};
         String[] loggedInOnlyOpts = new String[] {"Check-out Book", "Return Book", "Check-out Movie", "Return Movie", "Log out"};
         List<String> stringOptionList = new ArrayList<String>();
@@ -39,7 +40,8 @@ public class MainMenuTests {
     @Test
     public void test_main_menu_should_give_logged_in_options_after_login() throws Exception {
         Console console = new Console();
-        console.setupEnv(new OptionExecutor(new PreExistingBookListSize5(), new PreExistingMovieListSize3(), console));        String[] onlyBeforeLoginOpts = new String[]{"Log in"};
+        console.setupEnv(new OptionExecutor(new PreExistingBookListSize5(), new PreExistingMovieListSize3(), console, new UserListService()));
+        String[] onlyBeforeLoginOpts = new String[]{"Log in"};
         String[] loggedInOpts = new String[]{"List Books", "List Movies", "Quit", "Check-out Book", "Return Book", "Check-out Movie", "Return Movie", "Log out"};
         console.getSession().setLoggedInUserLibNumber("123-4567");
         List<String> stringOptionList = new ArrayList<String>();

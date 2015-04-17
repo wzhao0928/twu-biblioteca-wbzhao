@@ -68,7 +68,7 @@ public enum Option {
     LOG_IN("Log in", Type.BEFORE_LOGIN) {
         @Override
         public String execute() {
-            return executor.doLogIn();
+            return executor.doLogIn(executor.getConsole().collectLoginInfo());
         }
     },
 

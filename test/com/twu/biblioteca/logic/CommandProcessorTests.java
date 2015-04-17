@@ -5,6 +5,7 @@ import com.twu.biblioteca.entity.Movie;
 import com.twu.biblioteca.repo.ItemListService;
 import com.twu.biblioteca.repo.PreExistingBookListSize5;
 import com.twu.biblioteca.repo.PreExistingMovieListSize3;
+import com.twu.biblioteca.repo.UserListService;
 import com.twu.biblioteca.ui.Console;
 import org.junit.Test;
 
@@ -30,7 +31,7 @@ public class CommandProcessorTests {
                 "[ID: 5] [NAME: Test Book 5] [AUTHOR: Test Author 5] [YEAR: 2005]\r\n" +
                 "=================";
         Console console = new Console();
-        console.setupEnv(new OptionExecutor(new PreExistingBookListSize5(), new PreExistingMovieListSize3(), console));
+        console.setupEnv(new OptionExecutor(new PreExistingBookListSize5(), new PreExistingMovieListSize3(), console, new UserListService()));
         assertEquals(expectedPrint, console.response(Option.LIST_BOOKS));
     }
 
@@ -42,14 +43,14 @@ public class CommandProcessorTests {
                 "[ID: 13] [NAME: Test Movie 3] [DIRECTOR: Test Director 3] [YEAR: 2003] [RATING: Not Rated]\r\n" +
                 "=================";
         Console console = new Console();
-        console.setupEnv(new OptionExecutor(new PreExistingBookListSize5(), new PreExistingMovieListSize3(), console));
+        console.setupEnv(new OptionExecutor(new PreExistingBookListSize5(), new PreExistingMovieListSize3(), console, new UserListService()));
         assertEquals(expectedPrint, console.response(Option.LIST_MOVIES));
     }
 
     @Test
     public void test_quit_should_return_empty_string() throws Exception {
         Console console = new Console();
-        console.setupEnv(new OptionExecutor(new PreExistingBookListSize5(), new PreExistingMovieListSize3(), console));
+        console.setupEnv(new OptionExecutor(new PreExistingBookListSize5(), new PreExistingMovieListSize3(), console, new UserListService()));
         assertEquals("", console.response(Option.QUIT));
 
     }
@@ -57,7 +58,7 @@ public class CommandProcessorTests {
     @Test
     public void test_invalid_input_should_be_warned() throws Exception {
         Console console = new Console();
-        console.setupEnv(new OptionExecutor(new PreExistingBookListSize5(), new PreExistingMovieListSize3(), console));
+        console.setupEnv(new OptionExecutor(new PreExistingBookListSize5(), new PreExistingMovieListSize3(), console, new UserListService()));
         assertEquals("Select a valid option!", console.response(Option.INVALID));
     }
 
@@ -66,7 +67,7 @@ public class CommandProcessorTests {
     public void test_checked_out_book_should_not_in_the_list() throws Exception {
         ItemListService bookListService = new PreExistingBookListSize5();
         Console console = new Console();
-        console.setupEnv(new OptionExecutor(bookListService, new PreExistingMovieListSize3(), console));
+        console.setupEnv(new OptionExecutor(bookListService, new PreExistingMovieListSize3(), console, new UserListService()));
         Book book = (Book)bookListService.getItems().get(0);
         console.getSession().setLoggedInUserLibNumber("123-4567");
         System.setIn(new ByteArrayInputStream("1".getBytes()));
@@ -85,7 +86,7 @@ public class CommandProcessorTests {
     @Test
     public void test_checkout_not_existing_book_should_get_error_msg() throws Exception {
         Console console = new Console();
-        console.setupEnv(new OptionExecutor(new PreExistingBookListSize5(), new PreExistingMovieListSize3(), console));
+        console.setupEnv(new OptionExecutor(new PreExistingBookListSize5(), new PreExistingMovieListSize3(), console, new UserListService()));
         console.getSession().setLoggedInUserLibNumber("123-4567");
         System.setIn(new ByteArrayInputStream("6".getBytes()));
         assertEquals("That book is not available.", console.response(Option.CHECKOUT_BOOK));
@@ -95,7 +96,7 @@ public class CommandProcessorTests {
     public void test_returned_book_should_show_in_list() throws Exception {
         ItemListService bookListService = new PreExistingBookListSize5();
         Console console = new Console();
-        console.setupEnv(new OptionExecutor(bookListService, new PreExistingMovieListSize3(), console));
+        console.setupEnv(new OptionExecutor(bookListService, new PreExistingMovieListSize3(), console, new UserListService()));
         Book book = (Book)bookListService.getItems().get(0);
         console.getSession().setLoggedInUserLibNumber("123-4567");
         String expectedPrint = "=== BOOK LIST ===\r\n" +
@@ -118,7 +119,7 @@ public class CommandProcessorTests {
     @Test
     public void test_return_not_existing_book_should_get_error_msg() throws Exception {
         Console console = new Console();
-        console.setupEnv(new OptionExecutor(new PreExistingBookListSize5(), new PreExistingMovieListSize3(), console));
+        console.setupEnv(new OptionExecutor(new PreExistingBookListSize5(), new PreExistingMovieListSize3(), console, new UserListService()));
         console.getSession().setLoggedInUserLibNumber("123-4567");
         System.setIn(new ByteArrayInputStream("6".getBytes()));
         assertEquals("That is not a valid book to return.", console.response(Option.RETURN_BOOK));
@@ -130,7 +131,7 @@ public class CommandProcessorTests {
         System.setIn(new ByteArrayInputStream("11".getBytes()));
         ItemListService movieListService = new PreExistingMovieListSize3();
         Console console = new Console();
-        console.setupEnv(new OptionExecutor(new PreExistingBookListSize5(), movieListService, console));
+        console.setupEnv(new OptionExecutor(new PreExistingBookListSize5(), movieListService, console, new UserListService()));
         console.getSession().setLoggedInUserLibNumber("123-4567");
         Movie movie = (Movie)movieListService.getItems().get(0);
         assertEquals("Thank you! Enjoy the movie!", console.response(Option.CHECKOUT_MOVIE));
@@ -147,7 +148,7 @@ public class CommandProcessorTests {
     @Test
     public void test_checkout_not_existing_movie_should_get_error_msg() throws Exception {
         Console console = new Console();
-        console.setupEnv(new OptionExecutor(new PreExistingBookListSize5(), new PreExistingMovieListSize3(), console));
+        console.setupEnv(new OptionExecutor(new PreExistingBookListSize5(), new PreExistingMovieListSize3(), console, new UserListService()));
         console.getSession().setLoggedInUserLibNumber("123-4567");
         System.setIn(new ByteArrayInputStream("14".getBytes()));
         assertEquals("That movie is not available.", console.response(Option.CHECKOUT_MOVIE));
@@ -157,7 +158,7 @@ public class CommandProcessorTests {
     public void test_returned_movie_should_show_in_list() throws Exception {
         ItemListService movieListService = new PreExistingMovieListSize3();
         Console console = new Console();
-        console.setupEnv(new OptionExecutor(new PreExistingBookListSize5(), movieListService, console));
+        console.setupEnv(new OptionExecutor(new PreExistingBookListSize5(), movieListService, console, new UserListService()));
         Movie movie = (Movie)movieListService.getItems().get(0);
         console.getSession().setLoggedInUserLibNumber("123-4567");
         String expectedPrint = "=== MOVIE LIST ===\r\n" +
@@ -178,7 +179,7 @@ public class CommandProcessorTests {
     @Test
     public void test_return_not_existing_movie_should_get_error_msg() throws Exception {
         Console console = new Console();
-        console.setupEnv(new OptionExecutor(new PreExistingBookListSize5(), new PreExistingMovieListSize3(), console));
+        console.setupEnv(new OptionExecutor(new PreExistingBookListSize5(), new PreExistingMovieListSize3(), console, new UserListService()));
         console.getSession().setLoggedInUserLibNumber("123-4567");
         System.setIn(new ByteArrayInputStream("14".getBytes()));
         assertEquals("That is not a valid movie to return.", console.response(Option.RETURN_MOVIE));
@@ -189,7 +190,8 @@ public class CommandProcessorTests {
     @Test
     public void test_logged_in_user_should_get_proper_option_list() throws Exception {
         Console console = new Console();
-        console.setupEnv(new OptionExecutor(new PreExistingBookListSize5(), new PreExistingMovieListSize3(), console));
+        OptionExecutor executor = new OptionExecutor(new PreExistingBookListSize5(), new PreExistingMovieListSize3(), console, new UserListService());
+        console.setupEnv(executor);
 
         String[] onlyBeforeLoginOpts = new String[]{"Log in"};
         String[] commonOpts = new String[]{"List Books", "List Movies", "Quit", null};
@@ -212,7 +214,9 @@ public class CommandProcessorTests {
 
         stringOptionList.clear();
 //        console.response(Option.LOG_IN);
-        console.getSession().setLoggedInUserLibNumber("123-4567");
+//        console.getSession().setLoggedInUserLibNumber("123-4567");
+
+        assertEquals("You have logged in with your Library number: 123-4567", executor.doLogIn(new String[]{"123-4567", "123456"}));
         for (Option opt : console.listOptions()) {
             stringOptionList.add(opt.toString());
         }
@@ -227,8 +231,8 @@ public class CommandProcessorTests {
         }
 
         stringOptionList.clear();
-//        console.response(Option.LOG_OUT);
-        console.getSession().setLoggedInUserLibNumber("");
+        console.response(Option.LOG_OUT);
+//        console.getSession().setLoggedInUserLibNumber("");
 
         for (Option opt : console.listOptions()) {
             stringOptionList.add(opt.toString());

@@ -5,6 +5,7 @@ import com.twu.biblioteca.logic.OptionExecutor;
 import com.twu.biblioteca.repo.ItemListService;
 import com.twu.biblioteca.repo.PreExistingBookListSize5;
 import com.twu.biblioteca.repo.PreExistingMovieListSize3;
+import com.twu.biblioteca.repo.UserListService;
 import com.twu.biblioteca.ui.Console;
 import org.junit.Test;
 
@@ -25,7 +26,7 @@ public class BibliotecaAppTest {
         ItemListService bookListService = new PreExistingBookListSize5();
         ItemListService movieListService = new PreExistingMovieListSize3();
         Console console = new Console();
-        console.setupEnv(new OptionExecutor(bookListService, movieListService, console));
+        console.setupEnv(new OptionExecutor(bookListService, movieListService, console, new UserListService()));
         assertEquals("Bye Bye!", console.run());
         System.setIn(System.in);
 
