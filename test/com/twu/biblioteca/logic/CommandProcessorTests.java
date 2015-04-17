@@ -213,8 +213,6 @@ public class CommandProcessorTests {
         }
 
         stringOptionList.clear();
-//        console.response(Option.LOG_IN);
-//        console.getSession().setLoggedInUserLibNumber("123-4567");
 
         assertEquals("You have logged in with your Library number: 123-4567", executor.doLogIn(new String[]{"123-4567", "123456"}));
         for (Option opt : console.listOptions()) {
@@ -232,7 +230,6 @@ public class CommandProcessorTests {
 
         stringOptionList.clear();
         console.response(Option.LOG_OUT);
-//        console.getSession().setLoggedInUserLibNumber("");
 
         for (Option opt : console.listOptions()) {
             stringOptionList.add(opt.toString());
@@ -246,6 +243,43 @@ public class CommandProcessorTests {
         for (String opt : onlyLoggedInOpts) {
             assertFalse(stringOptionList.contains(opt));
         }
+    }
+
+    @Test
+    public void test_user_info_opt_should_get_the_users_information() throws Exception {
+        Console console = new Console();
+        OptionExecutor executor = new OptionExecutor(new PreExistingBookListSize5(), new PreExistingMovieListSize3(), console, new UserListService());
+        console.setupEnv(executor);
+
+        List<String> stringOptionList = new ArrayList<String>();
+
+        for (Option opt : console.listOptions()) {
+            stringOptionList.add(opt.toString());
+        }
+        assertFalse(stringOptionList.contains("User Info"));
+
+        stringOptionList.clear();
+        assertEquals("You have logged in with your Library number: 123-4567", executor.doLogIn(new String[]{"123-4567", "123456"}));
+        for (Option opt : console.listOptions()) {
+            stringOptionList.add(opt.toString());
+        }
+        assertTrue(stringOptionList.contains("User Info"));
+        System.setIn(new ByteArrayInputStream("User Info".getBytes()));
+        String expectedPrint = "=== USER INFO ===\r\n" +
+                "[NAME: Test User 1] [EMAIL: testuser1@test.com] [ADDRESS: Test Address 1] [PHONE: 0639129751]\r\n" +
+                "=================";
+        assertEquals(expectedPrint, console.response(console.readCommand()));
+
+        System.setIn(new ByteArrayInputStream("Log out".getBytes()));
+        console.response(console.readCommand());
+        assertEquals("You have logged in with your Library number: 765-4321", executor.doLogIn(new String[]{"765-4321", "654321"}));
+        expectedPrint = "=== USER INFO ===\r\n" +
+                "[NAME: Test User 2] [EMAIL: testuser2@test.com] [ADDRESS: Test Address 2] [PHONE: 0639129751]\r\n" +
+                "=================";
+        System.setIn(new ByteArrayInputStream("User Info".getBytes()));
+        assertEquals(expectedPrint, console.response(console.readCommand()));
+
+
     }
 
 }

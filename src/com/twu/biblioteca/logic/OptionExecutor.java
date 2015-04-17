@@ -3,6 +3,7 @@ package com.twu.biblioteca.logic;
 import com.twu.biblioteca.entity.Book;
 import com.twu.biblioteca.entity.Item;
 import com.twu.biblioteca.entity.Movie;
+import com.twu.biblioteca.entity.User;
 import com.twu.biblioteca.repo.ItemListService;
 import com.twu.biblioteca.repo.UserListService;
 import com.twu.biblioteca.ui.Console;
@@ -103,5 +104,19 @@ public class OptionExecutor {
     public String doLogOut() {
         console.getSession().setLoggedInUserLibNumber("");
         return "You have logged out";
+    }
+
+    public String doUserInfo() {
+        String result = "=== USER INFO ===\r\n";
+        result += makeUserInfoLine(userListService.getUserByLibNumber(console.getSession().getLoggedInUserLibNumber()));
+        result += "=================";
+        return  result;
+    }
+
+    private String makeUserInfoLine(User user) {
+        return user != null ? "[NAME: " + user.getName() + "] " +
+                "[EMAIL: " + user.getEmail() + "] " +
+                "[ADDRESS: " + user.getAddress() + "] " +
+                "[PHONE: " + user.getPhone() + "]\r\n" : "";
     }
 }

@@ -77,11 +77,17 @@ public enum Option {
         public String execute() {
             return executor.doLogOut();
         }
+    },
+
+    USER_INFO("User Info", Type.AFTER_LOGIN) {
+        @Override
+        public String execute() {
+            return executor.doUserInfo();
+        }
     }
     ;
 
     private String optString;
-//    private static Console console;
     private static OptionExecutor executor;
     private final Type type;
 
