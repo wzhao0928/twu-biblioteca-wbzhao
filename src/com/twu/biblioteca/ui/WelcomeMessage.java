@@ -6,8 +6,8 @@ package com.twu.biblioteca.ui;
 public class WelcomeMessage extends ConsoleMessage {
 
     public WelcomeMessage() {
-        super(  "**********************************\r\n" +
-                "*    Welcome to the Library!     *\r\n" +
+        super(  "**********************************\n" +
+                "*    Welcome to the Library!     *\n" +
                 "**********************************");
 
     }

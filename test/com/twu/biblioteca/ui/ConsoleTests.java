@@ -39,16 +39,23 @@ public class ConsoleTests {
 
     @Test
     public void test_option_list_before_login_should_be_shown_in_main_menu() throws Exception {
-        String expectedMainMenuBeforeLogin =    "Available Options:\r\n" +
-                "\t[List Books] [List Movies] [Quit] [Log In]\r\n" +
+        String expectedMainMenuBeforeLogin =    "Available Options:\n" +
+                "\t[List Books] [List Movies] [Quit] [Log In]\n" +
                 "Input Your Option > ";
         Console console = new Console();
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         MainMenu menu = new MainMenu();
         System.setOut(new PrintStream(outputStream));
-        console.printMainMenue(menu);
+        console.printMainMenu(menu);
         assertEquals(expectedMainMenuBeforeLogin, outputStream.toString());
         System.setOut(System.out);
 
+    }
+
+    @Test
+    public void test_console_init_should_give_welcome_msg() throws Exception {
+        String expectedWelcome = new WelcomeMessage().getContent();
+        console.init();
+        assertEquals(expectedWelcome + "\n", testOutputStream.toString());
     }
 }

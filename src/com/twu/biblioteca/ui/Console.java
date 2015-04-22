@@ -75,19 +75,17 @@ public class Console {
         System.out.println(message.getContent());
     }
 
-    public void printMainMenue(MainMenu menu) {
-        System.out.print("Available Options:\r\n" +
-                "\t[List Books] [List Movies] [Quit] [Log In]\r\n" +
+    public void printMainMenu(MainMenu menu) {
+        System.out.print("Available Options:\n" +
+                "\t[List Books] [List Movies] [Quit] [Log In]\n" +
                 "Input Your Option > ");
     }
 
     public void init() {
-
-
+        printMessage(new WelcomeMessage());
     }
 
     public void run() {
-        printMessage(new WelcomeMessage());
-        printMainMenue(new MainMenu());
+        printMainMenu(new MainMenu());
     }
 }

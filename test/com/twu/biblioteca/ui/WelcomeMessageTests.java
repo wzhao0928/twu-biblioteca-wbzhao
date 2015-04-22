@@ -11,8 +11,8 @@ public class WelcomeMessageTests {
     @Test
     public void string_content_of_default_welcome_message_test() throws Exception {
         String expectedWelcomeMessage = "";
-        expectedWelcomeMessage += "**********************************\r\n";
-        expectedWelcomeMessage += "*    Welcome to the Library!     *\r\n";
+        expectedWelcomeMessage += "**********************************\n";
+        expectedWelcomeMessage += "*    Welcome to the Library!     *\n";
         expectedWelcomeMessage += "**********************************";
         assertEquals(expectedWelcomeMessage, new WelcomeMessage().getContent());
     }
