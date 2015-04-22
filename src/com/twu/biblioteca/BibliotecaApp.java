@@ -8,6 +8,7 @@ public class BibliotecaApp {
 
     public static void main(String[] args) {
         setUpBibliotecaComponents();
+        System.out.println();
         console.run();
     }
 
