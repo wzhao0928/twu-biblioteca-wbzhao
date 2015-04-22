@@ -14,7 +14,7 @@ public class WelcomeMessageTests {
         expectedWelcomeMessage += "**********************************\r\n";
         expectedWelcomeMessage += "*    Welcome to the Library!     *\r\n";
         expectedWelcomeMessage += "**********************************";
-        assertEquals(expectedWelcomeMessage, new WelcomeMessage().getWelcomeMessage());
+        assertEquals(expectedWelcomeMessage, new WelcomeMessage().getContent());
     }
 
 }

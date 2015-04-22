@@ -47,31 +47,31 @@ public class OptionExecutor {
         return toPrint;
     }
 
-    public String doCheckOut(Class clazz) {
-        long checkoutItemId = readItemId(clazz);
-        if (clazz.equals(Book.class)) {
-            return bookListService.checkOutItemById(checkoutItemId, console.getSession().getLoggedInUserLibNumber()) ?
-                    "Thank you! Enjoy the book!" : "That book is not available.";
-        }
-        if (clazz.equals(Movie.class)) {
-            return movieListService.checkOutItemById(checkoutItemId, console.getSession().getLoggedInUserLibNumber()) ?
-                    "Thank you! Enjoy the movie!" : "That movie is not available.";
-        }
-        return "";
-    }
+//    public String doCheckOut(Class clazz) {
+//        long checkoutItemId = readItemId(clazz);
+//        if (clazz.equals(Book.class)) {
+//            return bookListService.checkOutItemById(checkoutItemId, console.getSession().getLoggedInUserLibNumber()) ?
+//                    "Thank you! Enjoy the book!" : "That book is not available.";
+//        }
+//        if (clazz.equals(Movie.class)) {
+//            return movieListService.checkOutItemById(checkoutItemId, console.getSession().getLoggedInUserLibNumber()) ?
+//                    "Thank you! Enjoy the movie!" : "That movie is not available.";
+//        }
+//        return "";
+//    }
 
-    public String doReturn(Class clazz) {
-        long returnItemId = readItemId(clazz);
-        if (clazz.equals(Book.class)) {
-            return bookListService.returnItemById(returnItemId, console.getSession().getLoggedInUserLibNumber()) ?
-                    "Thank you for returning the book." : "That is not a valid book to return.";
-        }
-        if (clazz.equals(Movie.class)) {
-            return movieListService.returnItemById(returnItemId, console.getSession().getLoggedInUserLibNumber()) ?
-                    "Thank you for returning the movie." : "That is not a valid movie to return.";
-        }
-        return null;
-    }
+//    public String doReturn(Class clazz) {
+//        long returnItemId = readItemId(clazz);
+//        if (clazz.equals(Book.class)) {
+//            return bookListService.returnItemById(returnItemId, console.getSession().getLoggedInUserLibNumber()) ?
+//                    "Thank you for returning the book." : "That is not a valid book to return.";
+//        }
+//        if (clazz.equals(Movie.class)) {
+//            return movieListService.returnItemById(returnItemId, console.getSession().getLoggedInUserLibNumber()) ?
+//                    "Thank you for returning the movie." : "That is not a valid movie to return.";
+//        }
+//        return null;
+//    }
 
     private long readItemId(Class clazz) {
         System.out.print("\tPlease input the ID of the " + clazz.getSimpleName() + ": ");
@@ -93,25 +93,25 @@ public class OptionExecutor {
                 "[RATING: " + ((movie.getRating() == 0) ? "Not Rated" : movie.getRating() ) + "]\r\n";
     }
 
-    public String doLogIn(String[] libNumberAndPsw) {
-        if (userListService.checkCredential(libNumberAndPsw)) {
-            console.getSession().setLoggedInUserLibNumber(libNumberAndPsw[0]);
-            return "You have logged in with your Library number: " + libNumberAndPsw[0];
-        }
-        return "Invalid Library number or password!";
-    }
+//    public String doLogIn(String[] libNumberAndPsw) {
+//        if (userListService.checkCredential(libNumberAndPsw)) {
+//            console.getSession().setLoggedInUserLibNumber(libNumberAndPsw[0]);
+//            return "You have logged in with your Library number: " + libNumberAndPsw[0];
+//        }
+//        return "Invalid Library number or password!";
+//    }
+//
+//    public String doLogOut() {
+//        console.getSession().setLoggedInUserLibNumber("");
+//        return "You have logged out";
+//    }
 
-    public String doLogOut() {
-        console.getSession().setLoggedInUserLibNumber("");
-        return "You have logged out";
-    }
-
-    public String doUserInfo() {
-        String result = "=== USER INFO ===\r\n";
-        result += makeUserInfoLine(userListService.getUserByLibNumber(console.getSession().getLoggedInUserLibNumber()));
-        result += "=================";
-        return  result;
-    }
+//    public String doUserInfo() {
+//        String result = "=== USER INFO ===\r\n";
+//        result += makeUserInfoLine(userListService.getUserByLibNumber(console.getSession().getLoggedInUserLibNumber()));
+//        result += "=================";
+//        return  result;
+//    }
 
     private String makeUserInfoLine(User user) {
         return user != null ? "[NAME: " + user.getName() + "] " +

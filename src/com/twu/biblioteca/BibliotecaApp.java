@@ -14,9 +14,9 @@ public class BibliotecaApp {
 
     public static void main(String[] args) {
         setupComponents();
-        System.out.println(welcomeMessage.getWelcomeMessage());
-        String terminationMsg = console.run();
-        System.out.println(terminationMsg);
+        System.out.println(welcomeMessage.getContent());
+//        String terminationMsg = console.run();
+//        System.out.println(terminationMsg);
     }
 
     private static void setupComponents() {
@@ -26,7 +26,7 @@ public class BibliotecaApp {
         UserListService userListService = new UserListService();
         console = new Console();
         OptionExecutor executor = new OptionExecutor(bookListService, movieListService, console, userListService);
-        console.setupEnv(executor);
+//        console.setupEnv(executor);
     }
 }
 

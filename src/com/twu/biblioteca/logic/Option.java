@@ -37,54 +37,55 @@ public enum Option {
         }
     },
 
-    CHECKOUT_BOOK("Check-out Book", Type.AFTER_LOGIN) {
-        @Override
-        public String execute() {
-            return executor.doCheckOut(Book.class);
-        }
-    },
+//    CHECKOUT_BOOK("Check-out Book", Type.AFTER_LOGIN) {
+//        @Override
+//        public String execute() {
+//            return executor.doCheckOut(Book.class);
+//        }
+//    },
 
-    RETURN_BOOK("Return Book", Type.AFTER_LOGIN) {
-        @Override
-        public String execute() {
-            return executor.doReturn(Book.class);
-        }
-    },
+//    RETURN_BOOK("Return Book", Type.AFTER_LOGIN) {
+//        @Override
+//        public String execute() {
+//            return executor.doReturn(Book.class);
+//        }
+//    },
 
-    CHECKOUT_MOVIE("Check-out Movie", Type.AFTER_LOGIN) {
-        @Override
-        public String execute() {
-            return executor.doCheckOut(Movie.class);
-        }
-    },
+//    CHECKOUT_MOVIE("Check-out Movie", Type.AFTER_LOGIN) {
+//        @Override
+//        public String execute() {
+//            return executor.doCheckOut(Movie.class);
+//        }
+//    },
 
-    RETURN_MOVIE("Return Movie", Type.AFTER_LOGIN) {
-        @Override
-        public String execute() {
-            return executor.doReturn(Movie.class);
-        }
-    },
+//    RETURN_MOVIE("Return Movie", Type.AFTER_LOGIN) {
+//        @Override
+//        public String execute() {
+//            return executor.doReturn(Movie.class);
+//        }
+//    },
 
     LOG_IN("Log in", Type.BEFORE_LOGIN) {
         @Override
         public String execute() {
-            return executor.doLogIn(executor.getConsole().collectLoginInfo());
+//            return executor.doLogIn(executor.getConsole().collectLoginInfo());
+            return "";
         }
     },
 
-    LOG_OUT("Log out", Type.AFTER_LOGIN) {
-        @Override
-        public String execute() {
-            return executor.doLogOut();
-        }
-    },
+//    LOG_OUT("Log out", Type.AFTER_LOGIN) {
+//        @Override
+//        public String execute() {
+//            return executor.doLogOut();
+//        }
+//    },
 
-    USER_INFO("User Info", Type.AFTER_LOGIN) {
-        @Override
-        public String execute() {
-            return executor.doUserInfo();
-        }
-    }
+//    USER_INFO("User Info", Type.AFTER_LOGIN) {
+//        @Override
+//        public String execute() {
+//            return executor.doUserInfo();
+//        }
+//    }
     ;
 
     private String optString;
@@ -103,10 +104,10 @@ public enum Option {
         executor = exec;
     }
 
-    public static com.twu.biblioteca.logic.Option[] getOptions(boolean isLoggedIn) {
-        com.twu.biblioteca.logic.Option[] allOptions = com.twu.biblioteca.logic.Option.values();
-        ArrayList<com.twu.biblioteca.logic.Option> availableOptList = new ArrayList<com.twu.biblioteca.logic.Option>();
-        for (com.twu.biblioteca.logic.Option option : allOptions) {
+    public static Option[] getOptions(boolean isLoggedIn) {
+        Option[] allOptions = Option.values();
+        ArrayList<Option> availableOptList = new ArrayList<Option>();
+        for (Option option : allOptions) {
             switch (option.type) {
                 case COMMON:
                     availableOptList.add(option); break;
