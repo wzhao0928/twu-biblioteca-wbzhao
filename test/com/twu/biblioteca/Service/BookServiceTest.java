@@ -2,6 +2,8 @@ package com.twu.biblioteca.Service;
 
 import com.twu.biblioteca.items.Book;
 import com.twu.biblioteca.items.BookBuilder;
+import com.twu.biblioteca.items.BookRepository;
+import com.twu.biblioteca.items.DefaultBookRepoBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,7 +28,8 @@ public class BookServiceTest {
                 builder.setId(2).setTitle("TestBook2").setAuthor("TestAuthor2").setYear(Year.of(2002)).build(),
                 builder.setId(3).setTitle("TestBook3").setAuthor("TestAuthor3").setYear(Year.of(2003)).build()
         };
-        bookService = new BookService();
+        BookRepository bookRepository = new DefaultBookRepoBuilder().build();
+        bookService = new BookService(bookRepository);
     }
 
     @Test
