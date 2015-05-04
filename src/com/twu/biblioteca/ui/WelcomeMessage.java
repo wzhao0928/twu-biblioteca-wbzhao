@@ -6,11 +6,10 @@ package com.twu.biblioteca.ui;
 public class WelcomeMessage extends Message {
 
     public WelcomeMessage() {
-
-        super("********************************\n" +
+        super();
+        setContent("********************************\n" +
                 "*    Welcome to Biblioteca!    *\n" +
                 "********************************");
-
     }
 
 }

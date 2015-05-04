@@ -40,6 +40,19 @@ public class ConsoleTests {
         assertEquals(expectedWelcome + "\n", testOutputStream.toString());
     }
 
+    @Test
+    public void test_console_run_should_list_all_the_books() throws Exception {
+        String allBooksList =   "=== BOOK LIST ===\n" +
+                                "[ID: 1] [TITLE: TestBook1] [AUTHOR: TestAuthor1] [YEAR: 2001]\n" +
+                                "[ID: 2] [TITLE: TestBook2] [AUTHOR: TestAuthor2] [YEAR: 2002]\n" +
+                                "[ID: 3] [TITLE: TestBook3] [AUTHOR: TestAuthor3] [YEAR: 2003]\n" +
+                                "=================\n";
+        console.init();
+        clearConsoleScreen();
+        console.run();
+        assertEquals(allBooksList, testOutputStream.toString());
+    }
+
 //    @Test
 //    public void test_console_run_should_start_with_proper_main_menu() throws Exception {
 //        String expectedStartMainMenu =  "Available Options:\n" +
@@ -63,3 +76,5 @@ public class ConsoleTests {
         testOutputStream.reset();
     }
 }
+
+// TODO: console should only get data from options execution, not the strings

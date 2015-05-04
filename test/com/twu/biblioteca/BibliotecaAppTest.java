@@ -17,11 +17,13 @@ public class BibliotecaAppTest {
 
     private String expectedScreenOnAppStart =   "********************************\n" +
                                                 "*    Welcome to Biblioteca!    *\n" +
-                                                "********************************\n"/* +
+                                                "********************************\n" +
                                                 "\n" +
-                                                "Available Options:\n" +
-                                                "\t[List Books] [List Movies] [Log In] [Quit]\n" +
-                                                "Input Your Option > "*/;
+                                                "=== BOOK LIST ===\n" +
+                                                "[ID: 1] [TITLE: TestBook1] [AUTHOR: TestAuthor1] [YEAR: 2001]\n" +
+                                                "[ID: 2] [TITLE: TestBook2] [AUTHOR: TestAuthor2] [YEAR: 2002]\n" +
+                                                "[ID: 3] [TITLE: TestBook3] [AUTHOR: TestAuthor3] [YEAR: 2003]\n" +
+                                                "=================\n";
 
     @Before
     public void setUp() throws Exception {

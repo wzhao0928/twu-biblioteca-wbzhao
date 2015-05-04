@@ -4,9 +4,9 @@ package com.twu.biblioteca.ui;
  * Created by wbzhao on 15/4/24.
  */
 public abstract class Message {
-    protected final String content;
+    private String content;
 
-    protected Message(String content) {
+    protected void setContent(String content) {
         this.content = content;
     }
 

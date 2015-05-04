@@ -1,5 +1,7 @@
 package com.twu.biblioteca.ui;
 
+import com.twu.biblioteca.Service.BookService;
+
 /**
  * Created by wbzhao on 15/4/22.
  */
@@ -16,8 +18,8 @@ public class Console {
     }
 
     public void run() {
-//        printMessage(new MainMenu("Available Options:\n" +
-//                "\t[List Books] [List Movies] [Log In] [Quit]\n"));
+        BookService bookService = new BookService();
+        printMessage(messageFactory.listItemsMsg(bookService.getAllAvailableBooks()));
     }
 
     public void printMessage(Message msg) {
@@ -32,7 +34,4 @@ public class Console {
         this.messageFactory = messageFactory;
     }
 
-    private void printMainMenuBeforeLogin(MainMenuBeforeLogin mainMenuBeforeLogin) {
-        System.out.print(mainMenuBeforeLogin.getMainMenuStringBeforeLogin());
-    }
 }
